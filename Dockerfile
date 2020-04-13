@@ -37,4 +37,5 @@ COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /app/hello-world-0.1.0
 
 
 #default command
-CMD java -jar /app/hello-world-0.1.0.jar -agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849
+#CMD java -jar /app/hello-world-0.1.0.jar -agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849
+ENTRYPOINT ["java -jar", "/app/hello-world-0.1.0.jar", "-Dcom.sun.management.jmxremote.port=9001","-Dcom.sun.management.jmxremote.authenticate=false","-Dcom.sun.management.jmxremote.ssl=false","-Dcom.sun.management.jmxremote.rmi.port=9001","-Djava.rmi.server.hostname=35.232.192.246"]
