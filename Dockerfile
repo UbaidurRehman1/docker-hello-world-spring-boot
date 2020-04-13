@@ -32,6 +32,7 @@ chown -R ubaid:ubaid /app
 
 #copy hello world to docker image from builder image
 
+USER ubaid:ubaid
 COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /app/hello-world-0.1.0.jar
 
 
