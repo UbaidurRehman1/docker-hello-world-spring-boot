@@ -12,6 +12,7 @@ local.properties
 .settings/
 target/
 .loadpath
+.idea
 
 *.py
 

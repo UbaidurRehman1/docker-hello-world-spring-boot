@@ -17,7 +17,14 @@ FROM openjdk:8-jdk-alpine
 #maintainer 
 MAINTAINER dstar55@yahoo.com
 #expose port 8080
-EXPOSE 8080
+EXPOSE 8080 8849
+
+RUN wget https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_1_2.tar.gz -P /tmp/ && \
+  tar -xzf /tmp/jprofiler_linux_11_1_2.tar.gz -C /usr/local &&\
+  rm /tmp/jprofiler_linux_11_1_2.tar.gz
+
+ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler9/bin/linux-x64/libjprofilerti.so=port=8849"
+
 
 #default command
 CMD java -jar /data/hello-world-0.1.0.jar
