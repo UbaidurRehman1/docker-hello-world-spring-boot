@@ -25,14 +25,15 @@ RUN wget https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_
 
 ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849"
 
-#RUN groupadd -r ubaid -g 433 && \
-#useradd -u 431 -r -g ubaid -d / -s /sbin/nologin -c "Docker image user" ubaid && \
-#chown -R ubaid:ubaid /
+RUN mkdir /app && \
+groupadd -r ubaid -g 433 && \
+useradd -u 431 -r -g ubaid -d /app -s /sbin/nologin -c "Docker image user" ubaid && \
+chown -R ubaid:ubaid /app
 
 #copy hello world to docker image from builder image
 
-COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /data/hello-world-0.1.0.jar
+COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /app/hello-world-0.1.0.jar
 
 
 #default command
-CMD java -jar /data/hello-world-0.1.0.jar -agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849
+CMD java -jar /app/hello-world-0.1.0.jar -agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849
