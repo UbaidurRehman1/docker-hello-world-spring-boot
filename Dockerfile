@@ -17,7 +17,7 @@ FROM openjdk:14-jdk-buster
 #maintainer 
 MAINTAINER dstar55@yahoo.com
 #expose port 8080
-EXPOSE 8080 8849
+EXPOSE 8080 9001
 
 RUN wget https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_1_2.tar.gz -P /tmp/ && \
   tar -xzf /tmp/jprofiler_linux_11_1_2.tar.gz -C /usr/local &&\
