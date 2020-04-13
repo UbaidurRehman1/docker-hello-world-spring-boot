@@ -25,7 +25,9 @@ RUN wget https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_
 
 ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849"
 
-
+RUN groupadd -r ubaid -g 433 && \
+useradd -u 431 -r -g ubaid -d / -s /sbin/nologin -c "Docker image user" ubaid && \
+chown -R ubaid:ubaid /
 
 #copy hello world to docker image from builder image
 
