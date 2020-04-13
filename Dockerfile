@@ -17,7 +17,7 @@ FROM openjdk:14-jdk-buster
 #maintainer 
 MAINTAINER dstar55@yahoo.com
 #expose port 8080
-EXPOSE 8080 9001
+EXPOSE 8080 9010
 
 #RUN wget https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_1_2.tar.gz -P /tmp/ && \
 #  tar -xzf /tmp/jprofiler_linux_11_1_2.tar.gz -C /usr/local &&\
@@ -38,4 +38,14 @@ COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /app/hello-world-0.1.0
 
 #default command
 #CMD java -jar /app/hello-world-0.1.0.jar -agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849
-ENTRYPOINT ["java",  "-jar", "/app/hello-world-0.1.0.jar", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.port=9001", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9001", "-Djava.rmi.server.hostname=35.232.192.246"]
+#ENTRYPOINT ["java",  "-jar", "/app/hello-world-0.1.0.jar", "-Dcom.sun.management.jmxremote", "-Dcom.sun.management.jmxremote.local.only=false", "-Dcom.sun.management.jmxremote.port=9001", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Dcom.sun.management.jmxremote.rmi.port=9001", "-Djava.rmi.server.hostname=35.232.192.246"]
+
+CMD ["java", \
+     "-Dcom.sun.management.jmxremote", \
+     "-Dcom.sun.management.jmxremote.port=9010", \
+     "-Dcom.sun.management.jmxremote.rmi.port=9010", \
+     "-Dcom.sun.management.jmxremote.authenticate=false", \
+     "-Dcom.sun.management.jmxremote.ssl=false", \
+     "-Djava.rmi.server.hostname=35.232.192.246", \
+     "-jar", \
+     "/app/hello-world-0.1.0.jar"]
