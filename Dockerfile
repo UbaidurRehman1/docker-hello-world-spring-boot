@@ -23,12 +23,14 @@ RUN wget https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_
   tar -xzf /tmp/jprofiler_linux_11_1_2.tar.gz -C /usr/local &&\
   rm /tmp/jprofiler_linux_11_1_2.tar.gz
 
-ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler9/bin/linux-x64/libjprofilerti.so=port=8849"
+ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849"
 
 
-#default command
-CMD java -jar /data/hello-world-0.1.0.jar
 
 #copy hello world to docker image from builder image
 
 COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /data/hello-world-0.1.0.jar
+
+
+#default command
+CMD java -jar /data/hello-world-0.1.0.jar -agentpath:/usr/local/jprofiler11/bin/linux-x64/libjprofilerti.so=port=8849
